@@ -1,6 +1,7 @@
 package watermark
 
 import java.awt.Color
+import java.awt.Transparency
 import java.awt.image.BufferedImage
 import java.io.File
 import javax.imageio.ImageIO
@@ -24,6 +25,45 @@ fun main() {
         return
     }
 
+    var useAlfa = false
+    var useTranspColor = false
+    var tClr = Color(0,0, 0)
+    if (wm.transparency == Transparency.TRANSLUCENT) {
+        println("Do you want to use the watermark's Alpha channel?")
+        useAlfa = readln().equals("yes", true)
+    } else {
+        println("Do you want to set a transparency color?")
+        if (readln().equals("yes", true)) {
+            println("Input a transparency color ([Red] [Green] [Blue]):")
+            val clrs = readln().split(" ")
+            // only 3 colors accepted
+            if (clrs.size != 3) {
+                println("The transparency color input is invalid.")
+                return
+            }
+            val tRed: Int
+            val tGreen: Int
+            val tBlue: Int
+            // check if int numbers were input
+            try {
+                tRed = clrs[0].toInt()
+                tGreen = clrs[1].toInt()
+                tBlue = clrs[2].toInt()
+            } catch (e: NumberFormatException) {
+                println("The transparency color input is invalid.")
+                return
+            }
+
+            // check if numbers are in range
+            if( !(tRed in 0..255 && tGreen in 0..255 && tBlue in 0..255)) {
+                println("The transparency color input is invalid.")
+                return
+            }
+            tClr = Color(tRed, tGreen, tBlue)
+            useTranspColor = true
+        }
+    }
+
     val weight: Int
     println("Input the watermark transparency percentage (Integer 0-100):")
     try {
@@ -45,20 +85,11 @@ fun main() {
         return
     }
 
-    val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
+    val resImg: BufferedImage
+    if(useAlfa) resImg = putTransLucidWM(im, wm, weight)
+    else if (useTranspColor) resImg = putTransColorWM(im, wm, tClr, weight)
+    else resImg = putOpaqueWM(im, wm, weight)
 
-    for (x in 0 until im.width) {
-        for (y in 0 until im.height) {
-            val i = Color(im.getRGB(x, y))
-            val w = Color(wm.getRGB(x, y))
-            val color = Color(
-                (weight * w.red + (100 - weight) * i.red) / 100,
-                (weight * w.green + (100 - weight) * i.green) / 100,
-                (weight * w.blue + (100 - weight) * i.blue) / 100
-            )
-            resImg.setRGB(x, y, color.rgb)
-        }
-    }
     val outFile = File(outFileName)
     ImageIO.write(resImg, outFileName.substring(outFileName.length - 3), outFile)
     println("The watermarked image $outFileName has been created.")
@@ -74,7 +105,7 @@ fun readFile(str: String): BufferedImage {
     }
 
     val im: BufferedImage = ImageIO.read(file)
-    if (im.colorModel.numComponents != 3) {
+    if (im.colorModel.numComponents < 3) {
         println("The number of $str color components isn't 3.")
         throw ImgFileException("")
     }
@@ -83,4 +114,71 @@ fun readFile(str: String): BufferedImage {
         throw ImgFileException("")
     }
     return im
+}
+
+fun putOpaqueWM(im: BufferedImage, wm: BufferedImage, weight: Int): BufferedImage {
+    val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
+
+    for (x in 0 until im.width) {
+        for (y in 0 until im.height) {
+            val i = Color(im.getRGB(x, y))
+            val w = Color(wm.getRGB(x, y))
+            val color = Color(
+                (weight * w.red + (100 - weight) * i.red) / 100,
+                (weight * w.green + (100 - weight) * i.green) / 100,
+                (weight * w.blue + (100 - weight) * i.blue) / 100
+            )
+            resImg.setRGB(x, y, color.rgb)
+        }
+    }
+    return resImg
+}
+
+fun putTransLucidWM(im: BufferedImage, wm: BufferedImage, weight: Int): BufferedImage {
+    val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
+
+    for (x in 0 until im.width) {
+        for (y in 0 until im.height) {
+            val i = Color(im.getRGB(x, y))
+            val w = Color(wm.getRGB(x, y), true)
+            val color: Color
+
+            if (w.alpha == 0) {
+                color = Color(i.red, i.green, i.blue)
+            } else /*if (w.alpha == 255)*/ {
+                color = Color(
+                    (weight * w.red + (100 - weight) * i.red) / 100,
+                    (weight * w.green + (100 - weight) * i.green) / 100,
+                    (weight * w.blue + (100 - weight) * i.blue) / 100
+                )
+            }
+            resImg.setRGB(x, y, color.rgb)
+        }
+    }
+    return resImg
+}
+
+fun putTransColorWM(im: BufferedImage, wm: BufferedImage, tClr: Color, weight: Int): BufferedImage {
+    val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
+
+    for (x in 0 until im.width) {
+        for (y in 0 until im.height) {
+            val i = Color(im.getRGB(x, y))
+            val w = Color(wm.getRGB(x, y))
+            val color: Color
+
+            if (w.red == tClr.red && w.green == tClr.green && w.blue == tClr.blue) {
+                color = Color(i.red, i.green, i.blue)
+            } else /*if (w.alpha == 255)*/ {
+                color = Color(
+                    (weight * w.red + (100 - weight) * i.red) / 100,
+                    (weight * w.green + (100 - weight) * i.green) / 100,
+                    (weight * w.blue + (100 - weight) * i.blue) / 100
+                )
+            }
+            resImg.setRGB(x, y, color.rgb)
+        }
+    }
+    return resImg
+
 }
