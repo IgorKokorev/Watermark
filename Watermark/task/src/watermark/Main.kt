@@ -87,7 +87,7 @@ fun main() {
     println("Choose the position method (single, grid):")
     when (readln().lowercase()) {
         "single" -> {
-            println("Input the watermark position ([x 0-${im.width-wm.width}] [y 0-${im.height-wm.height}):")
+            println("Input the watermark position ([x 0-${im.width-wm.width}] [y 0-${im.height-wm.height}]):")
             val inp = readln().split(" ")
             if (inp.size != 2) {
                 println("The position input is invalid.")
@@ -120,12 +120,21 @@ fun main() {
     }
 
     // resulting image
-    val resImg: BufferedImage
+    var resImg = BufferedImage(1,1, BufferedImage.TYPE_INT_RGB)
 
-
-    if(useAlfa) resImg = putTransLucidWM(im, wm, weight)
-    else if (useBGColor) resImg = putTransColorWM(im, wm, tClr, weight)
-    else resImg = putOpaqueWM(im, wm, weight)
+    if(isWMSingle) {
+        if(useAlfa) resImg = putTransLucidWM(im, wm, weight, xWM, yWM)
+        else if (useBGColor) resImg = putTransColorWM(im, wm, tClr, weight, xWM, yWM)
+        else resImg = putOpaqueWM(im, wm, weight, xWM, yWM)
+    } else {
+        for (xWM in 0 until im.width step wm.width) {
+            for (yWM in 0 until im.height step wm.height) {
+                if(useAlfa) resImg = putTransLucidWM(im, wm, weight, xWM, yWM)
+                else if (useBGColor) resImg = putTransColorWM(im, wm, tClr, weight, xWM, yWM)
+                else resImg = putOpaqueWM(im, wm, weight, xWM, yWM)
+            }
+        }
+    }
 
     val outFile = File(outFileName)
     ImageIO.write(resImg, outFileName.substring(outFileName.length - 3), outFile)
@@ -153,11 +162,11 @@ fun readFile(str: String): BufferedImage {
     return im
 }
 
-fun putOpaqueWM(im: BufferedImage, wm: BufferedImage, weight: Int): BufferedImage {
+fun putOpaqueWM(im: BufferedImage, wm: BufferedImage, weight: Int, xWM: Int, yWM: Int): BufferedImage {
     val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
 
-    for (x in 0 until im.width) {
-        for (y in 0 until im.height) {
+    for (x in xWM until Math.min(im.width, xWM+wm.width)) {
+        for (y in yWM until Math.min(im.height, yWM+wm.height)) {
             val i = Color(im.getRGB(x, y))
             val w = Color(wm.getRGB(x, y))
             val color = Color(
@@ -171,11 +180,11 @@ fun putOpaqueWM(im: BufferedImage, wm: BufferedImage, weight: Int): BufferedImag
     return resImg
 }
 
-fun putTransLucidWM(im: BufferedImage, wm: BufferedImage, weight: Int): BufferedImage {
+fun putTransLucidWM(im: BufferedImage, wm: BufferedImage, weight: Int, xWM: Int, yWM: Int): BufferedImage {
     val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
 
-    for (x in 0 until im.width) {
-        for (y in 0 until im.height) {
+    for (x in xWM until Math.min(im.width, xWM+wm.width)) {
+        for (y in yWM until Math.min(im.height, yWM+wm.height)) {
             val i = Color(im.getRGB(x, y))
             val w = Color(wm.getRGB(x, y), true)
             val color: Color
@@ -195,11 +204,11 @@ fun putTransLucidWM(im: BufferedImage, wm: BufferedImage, weight: Int): Buffered
     return resImg
 }
 
-fun putTransColorWM(im: BufferedImage, wm: BufferedImage, tClr: Color, weight: Int): BufferedImage {
+fun putTransColorWM(im: BufferedImage, wm: BufferedImage, tClr: Color, weight: Int, xWM: Int, yWM: Int): BufferedImage {
     val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
 
-    for (x in 0 until im.width) {
-        for (y in 0 until im.height) {
+    for (x in xWM until Math.min(im.width, xWM+wm.width)) {
+        for (y in yWM until Math.min(im.height, yWM+wm.height)) {
             val i = Color(im.getRGB(x, y))
             val w = Color(wm.getRGB(x, y))
             val color: Color
