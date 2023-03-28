@@ -216,3 +216,57 @@
 > grid
 9Input the output image filename (jpg or png extension):
 > test\out1.png
+7The watermarked image test\out1.png has been created.
+[1;31m
+Start test 13[0m
+Input the image filename:
+> test\image5.png
+%Input the watermark image filename:
+> test\logorgba.png
+3Do you want to use the watermark's Alpha channel?
+> yes
+>Input the watermark transparency percentage (Integer 0-100):
+> 25
+,Choose the position method (single, grid):
+> grid
+9Input the output image filename (jpg or png extension):
+> test\out2.png
+7The watermarked image test\out2.png has been created.
+[1;31m
+Start test 14[0m
+Input the image filename:
+> test\image5.png
+%Input the watermark image filename:
+> test\logorgb.png
+*Do you want to set a transparency color?
+> yes
+4Input a transparency color ([Red] [Green] [Blue]):
+> 0 0 0
+>Input the watermark transparency percentage (Integer 0-100):
+> 35
+,Choose the position method (single, grid):
+	> single
+5Input the watermark position ([x 0-300] [y 0-600]):
+
+> 200 200
+9Input the output image filename (jpg or png extension):
+> test\out3.png
+7The watermarked image test\out3.png has been created.
+[1;31m
+Start test 15[0m
+Input the image filename:
+> test\image5.png
+%Input the watermark image filename:
+> test\logorgba.png
+3Do you want to use the watermark's Alpha channel?
+> yes
+>Input the watermark transparency percentage (Integer 0-100):
+> 50
+,Choose the position method (single, grid):
+	> single
+5Input the watermark position ([x 0-300] [y 0-600]):
+
+> 300 400
+9Input the output image filename (jpg or png extension):
+> test\out4.png
+7The watermarked image test\out4.png has been created.

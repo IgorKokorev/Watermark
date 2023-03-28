@@ -9,6 +9,9 @@ import java.lang.NumberFormatException
 
 class ImgFileException( s: String ): Exception(s)
 
+// resulting image
+var resImg = BufferedImage(1,1, BufferedImage.TYPE_INT_RGB)
+
 fun main() {
 
     val im: BufferedImage // Image
@@ -119,19 +122,18 @@ fun main() {
         return
     }
 
-    // resulting image
-    var resImg = BufferedImage(1,1, BufferedImage.TYPE_INT_RGB)
 
+    resImg = im // ???
     if(isWMSingle) {
-        if(useAlfa) resImg = putTransLucidWM(im, wm, weight, xWM, yWM)
-        else if (useBGColor) resImg = putTransColorWM(im, wm, tClr, weight, xWM, yWM)
-        else resImg = putOpaqueWM(im, wm, weight, xWM, yWM)
+        if(useAlfa) putTransLucidWM(im, wm, weight, xWM, yWM)
+        else if (useBGColor) putTransColorWM(im, wm, tClr, weight, xWM, yWM)
+        else putOpaqueWM(im, wm, weight, xWM, yWM)
     } else {
-        for (xWM in 0 until im.width step wm.width) {
-            for (yWM in 0 until im.height step wm.height) {
-                if(useAlfa) resImg = putTransLucidWM(im, wm, weight, xWM, yWM)
-                else if (useBGColor) resImg = putTransColorWM(im, wm, tClr, weight, xWM, yWM)
-                else resImg = putOpaqueWM(im, wm, weight, xWM, yWM)
+        for (x in 0 until im.width step wm.width) {
+            for (y in 0 until im.height step wm.height) {
+                if(useAlfa) putTransLucidWM(resImg, wm, weight, x, y)
+                else if (useBGColor) putTransColorWM(resImg, wm, tClr, weight, x, y)
+                else putOpaqueWM(resImg, wm, weight, x, y)
             }
         }
     }
@@ -162,13 +164,12 @@ fun readFile(str: String): BufferedImage {
     return im
 }
 
-fun putOpaqueWM(im: BufferedImage, wm: BufferedImage, weight: Int, xWM: Int, yWM: Int): BufferedImage {
-    val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
+fun putOpaqueWM(im: BufferedImage, wm: BufferedImage, weight: Int, xWM: Int, yWM: Int) {
 
     for (x in xWM until Math.min(im.width, xWM+wm.width)) {
         for (y in yWM until Math.min(im.height, yWM+wm.height)) {
             val i = Color(im.getRGB(x, y))
-            val w = Color(wm.getRGB(x, y))
+            val w = Color(wm.getRGB(x-xWM, y-yWM))
             val color = Color(
                 (weight * w.red + (100 - weight) * i.red) / 100,
                 (weight * w.green + (100 - weight) * i.green) / 100,
@@ -177,16 +178,14 @@ fun putOpaqueWM(im: BufferedImage, wm: BufferedImage, weight: Int, xWM: Int, yWM
             resImg.setRGB(x, y, color.rgb)
         }
     }
-    return resImg
 }
 
-fun putTransLucidWM(im: BufferedImage, wm: BufferedImage, weight: Int, xWM: Int, yWM: Int): BufferedImage {
-    val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
+fun putTransLucidWM(im: BufferedImage, wm: BufferedImage, weight: Int, xWM: Int, yWM: Int) {
 
     for (x in xWM until Math.min(im.width, xWM+wm.width)) {
         for (y in yWM until Math.min(im.height, yWM+wm.height)) {
             val i = Color(im.getRGB(x, y))
-            val w = Color(wm.getRGB(x, y), true)
+            val w = Color(wm.getRGB(x-xWM, y-yWM), true)
             val color: Color
 
             if (w.alpha == 0) {
@@ -201,16 +200,14 @@ fun putTransLucidWM(im: BufferedImage, wm: BufferedImage, weight: Int, xWM: Int,
             resImg.setRGB(x, y, color.rgb)
         }
     }
-    return resImg
 }
 
-fun putTransColorWM(im: BufferedImage, wm: BufferedImage, tClr: Color, weight: Int, xWM: Int, yWM: Int): BufferedImage {
-    val resImg = BufferedImage(im.width, im.height, BufferedImage.TYPE_INT_RGB)
+fun putTransColorWM(im: BufferedImage, wm: BufferedImage, tClr: Color, weight: Int, xWM: Int, yWM: Int) {
 
     for (x in xWM until Math.min(im.width, xWM+wm.width)) {
         for (y in yWM until Math.min(im.height, yWM+wm.height)) {
             val i = Color(im.getRGB(x, y))
-            val w = Color(wm.getRGB(x, y))
+            val w = Color(wm.getRGB(x-xWM, y-yWM))
             val color: Color
 
             if (w.red == tClr.red && w.green == tClr.green && w.blue == tClr.blue) {
@@ -225,6 +222,4 @@ fun putTransColorWM(im: BufferedImage, wm: BufferedImage, tClr: Color, weight: I
             resImg.setRGB(x, y, color.rgb)
         }
     }
-    return resImg
-
 }

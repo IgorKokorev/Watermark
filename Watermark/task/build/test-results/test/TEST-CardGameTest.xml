@@ -1,82 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="CardGameTest" tests="1" skipped="0" failures="1" errors="0" timestamp="2023-03-28T13:28:27" hostname="IKOKSASUS" time="0.84">
+<testsuite name="CardGameTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2023-03-28T20:01:46" hostname="IKOKSASUS" time="1.723">
   <properties/>
-  <testcase name="start" classname="CardGameTest" time="0.84">
-    <failure message="java.lang.AssertionError: Exception in test #12&#10;&#10;java.lang.ArrayIndexOutOfBoundsException: Coordinate out of bounds!&#10;&#9;at java.desktop/sun.awt.image.ByteInterleavedRaster.getDataElements(ByteInterleavedRaster.java:314)&#10;&#9;at java.desktop/java.awt.image.BufferedImage.getRGB(BufferedImage.java:918)&#10;&#9;at watermark.MainKt.putTransColorWM(Main.kt:213)&#10;&#9;at watermark.MainKt.main(Main.kt:133)&#10;&#9;at watermark.MainKt.main(Main.kt)&#10;&#10;Please find below the output of your program during this failed test.&#10;Note that the '&gt;' character indicates the beginning of the input line.&#10;&#10;---&#10;&#10;Input the image filename:&#10;&gt; test\image5.png&#10;Input the watermark image filename:&#10;&gt; test\logorgb.png&#10;Do you want to set a transparency color?&#10;&gt; yes&#10;Input a transparency color ([Red] [Green] [Blue]):&#10;&gt; 0 0 0&#10;Input the watermark transparency percentage (Integer 0-100):&#10;&gt; 15&#10;Choose the position method (single, grid):&#10;&gt; grid&#10;Input the output image filename (jpg or png extension):&#10;&gt; test\out1.png" type="java.lang.AssertionError">java.lang.AssertionError: Exception in test #12
-
-java.lang.ArrayIndexOutOfBoundsException: Coordinate out of bounds!
-	at java.desktop/sun.awt.image.ByteInterleavedRaster.getDataElements(ByteInterleavedRaster.java:314)
-	at java.desktop/java.awt.image.BufferedImage.getRGB(BufferedImage.java:918)
-	at watermark.MainKt.putTransColorWM(Main.kt:213)
-	at watermark.MainKt.main(Main.kt:133)
-	at watermark.MainKt.main(Main.kt)
-
-Please find below the output of your program during this failed test.
-Note that the '&gt;' character indicates the beginning of the input line.
-
----
-
-Input the image filename:
-&gt; test\image5.png
-Input the watermark image filename:
-&gt; test\logorgb.png
-Do you want to set a transparency color?
-&gt; yes
-Input a transparency color ([Red] [Green] [Blue]):
-&gt; 0 0 0
-Input the watermark transparency percentage (Integer 0-100):
-&gt; 15
-Choose the position method (single, grid):
-&gt; grid
-Input the output image filename (jpg or png extension):
-&gt; test\out1.png
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.hyperskill.hstest.stage.StageTest.start(StageTest.java:203)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
-	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
-	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-</failure>
-  </testcase>
+  <testcase name="start" classname="CardGameTest" time="1.723"/>
   <system-out><![CDATA[?[1;31m
 Start test 1?[0m
 Input the image filename:
@@ -293,6 +218,58 @@ Choose the position method (single, grid):
 > grid
 Input the output image filename (jpg or png extension):
 > test\out1.png
+The watermarked image test\out1.png has been created.
+?[1;31m
+Start test 13?[0m
+Input the image filename:
+> test\image5.png
+Input the watermark image filename:
+> test\logorgba.png
+Do you want to use the watermark's Alpha channel?
+> yes
+Input the watermark transparency percentage (Integer 0-100):
+> 25
+Choose the position method (single, grid):
+> grid
+Input the output image filename (jpg or png extension):
+> test\out2.png
+The watermarked image test\out2.png has been created.
+?[1;31m
+Start test 14?[0m
+Input the image filename:
+> test\image5.png
+Input the watermark image filename:
+> test\logorgb.png
+Do you want to set a transparency color?
+> yes
+Input a transparency color ([Red] [Green] [Blue]):
+> 0 0 0
+Input the watermark transparency percentage (Integer 0-100):
+> 35
+Choose the position method (single, grid):
+> single
+Input the watermark position ([x 0-300] [y 0-600]):
+> 200 200
+Input the output image filename (jpg or png extension):
+> test\out3.png
+The watermarked image test\out3.png has been created.
+?[1;31m
+Start test 15?[0m
+Input the image filename:
+> test\image5.png
+Input the watermark image filename:
+> test\logorgba.png
+Do you want to use the watermark's Alpha channel?
+> yes
+Input the watermark transparency percentage (Integer 0-100):
+> 50
+Choose the position method (single, grid):
+> single
+Input the watermark position ([x 0-300] [y 0-600]):
+> 300 400
+Input the output image filename (jpg or png extension):
+> test\out4.png
+The watermarked image test\out4.png has been created.
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

@@ -1067,20 +1067,22 @@ files:
 - name: test/wide.png
   visible: false
   learner_created: false
+- name: test/out1.png
+  visible: true
+  learner_created: true
+- name: test/out4.png
+  visible: true
+  learner_created: true
+- name: test/out3.png
+  visible: true
+  learner_created: true
+- name: test/out2.png
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/222/stages/1116/implement#comment
-status: Failed
+status: Solved
 feedback:
-  message: "Exception in test #12\n\njava.lang.ArrayIndexOutOfBoundsException: Coordinate\
-    \ out of bounds!\n\tat java.desktop/sun.awt.image.ByteInterleavedRaster.getDataElements(ByteInterleavedRaster.java:314)\n\
-    \tat java.desktop/java.awt.image.BufferedImage.getRGB(BufferedImage.java:918)\n\
-    \tat watermark.MainKt.putTransColorWM(Main.kt:213)\n\tat watermark.MainKt.main(Main.kt:133)\n\
-    \tat watermark.MainKt.main(Main.kt)\n\nPlease find below the output of your program\
-    \ during this failed test.\nNote that the &#39;&gt;&#39; character indicates the\
-    \ beginning of the input line.\n\n---\n\nInput the image filename:\n&gt; test\\\
-    image5.png\nInput the watermark image filename:\n&gt; test\\logorgb.png\nDo you\
-    \ want to set a transparency color?\n&gt; yes\nInput a transparency color ([Red]\
-    \ [Green] [Blue]):\n&gt; 0 0 0\nInput the watermark transparency percentage (Integer\
-    \ 0-100):\n&gt; 15\nChoose the position method (single, grid):\n&gt; grid\nInput\
-    \ the output image filename (jpg or png extension):\n&gt; test\\out1.png"
-  time: "Tue, 28 Mar 2023 13:28:28 UTC"
+  message: Well done! You've finished the project. Select a new project on <a href="https://hyperskill.org/projects">Hyperskill</a>
+    to continue learning.
+  time: "Tue, 28 Mar 2023 20:01:48 UTC"
 record: -1

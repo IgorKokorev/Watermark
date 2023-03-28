@@ -29,7 +29,7 @@
 </td>
 <td>
 <div class="infoBox" id="failures">
-<div class="counter">1</div>
+<div class="counter">0</div>
 <p>failures</p>
 </div>
 </td>
@@ -41,7 +41,7 @@
 </td>
 <td>
 <div class="infoBox" id="duration">
-<div class="counter">0.840s</div>
+<div class="counter">1.723s</div>
 <p>duration</p>
 </div>
 </td>
@@ -50,8 +50,8 @@
 </div>
 </td>
 <td>
-<div class="infoBox failures" id="successRate">
-<div class="percent">0%</div>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
 <p>successful</p>
 </div>
 </td>
@@ -61,99 +61,13 @@
 <div id="tabs">
 <ul class="tabLinks">
 <li>
-<a href="#tab0">Failed tests</a>
+<a href="#tab0">Tests</a>
 </li>
 <li>
-<a href="#tab1">Tests</a>
-</li>
-<li>
-<a href="#tab2">Standard output</a>
+<a href="#tab1">Standard output</a>
 </li>
 </ul>
 <div id="tab0" class="tab">
-<h2>Failed tests</h2>
-<div class="test">
-<a name="start"></a>
-<h3 class="failures">start</h3>
-<span class="code">
-<pre>java.lang.AssertionError: Exception in test #12
-
-java.lang.ArrayIndexOutOfBoundsException: Coordinate out of bounds!
-	at java.desktop/sun.awt.image.ByteInterleavedRaster.getDataElements(ByteInterleavedRaster.java:314)
-	at java.desktop/java.awt.image.BufferedImage.getRGB(BufferedImage.java:918)
-	at watermark.MainKt.putTransColorWM(Main.kt:213)
-	at watermark.MainKt.main(Main.kt:133)
-	at watermark.MainKt.main(Main.kt)
-
-Please find below the output of your program during this failed test.
-Note that the '&gt;' character indicates the beginning of the input line.
-
----
-
-Input the image filename:
-&gt; test\image5.png
-Input the watermark image filename:
-&gt; test\logorgb.png
-Do you want to set a transparency color?
-&gt; yes
-Input a transparency color ([Red] [Green] [Blue]):
-&gt; 0 0 0
-Input the watermark transparency percentage (Integer 0-100):
-&gt; 15
-Choose the position method (single, grid):
-&gt; grid
-Input the output image filename (jpg or png extension):
-&gt; test\out1.png
-	at org.junit.Assert.fail(Assert.java:89)
-	at org.hyperskill.hstest.stage.StageTest.start(StageTest.java:203)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:59)
-	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
-	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:56)
-	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.BlockJUnit4ClassRunner$1.evaluate(BlockJUnit4ClassRunner.java:100)
-	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:366)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:103)
-	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:63)
-	at org.junit.runners.ParentRunner$4.run(ParentRunner.java:331)
-	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:79)
-	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:329)
-	at org.junit.runners.ParentRunner.access$100(ParentRunner.java:66)
-	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:293)
-	at org.junit.runners.ParentRunner$3.evaluate(ParentRunner.java:306)
-	at org.junit.runners.ParentRunner.run(ParentRunner.java:413)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.runTestClass(JUnitTestClassExecutor.java:110)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:58)
-	at org.gradle.api.internal.tasks.testing.junit.JUnitTestClassExecutor.execute(JUnitTestClassExecutor.java:38)
-	at org.gradle.api.internal.tasks.testing.junit.AbstractJUnitTestClassProcessor.processTestClass(AbstractJUnitTestClassProcessor.java:62)
-	at org.gradle.api.internal.tasks.testing.SuiteTestClassProcessor.processTestClass(SuiteTestClassProcessor.java:51)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
-	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
-	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
-	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:36)
-	at org.gradle.internal.dispatch.ReflectionDispatch.dispatch(ReflectionDispatch.java:24)
-	at org.gradle.internal.dispatch.ContextClassLoaderDispatch.dispatch(ContextClassLoaderDispatch.java:33)
-	at org.gradle.internal.dispatch.ProxyDispatchAdapter$DispatchingInvocationHandler.invoke(ProxyDispatchAdapter.java:94)
-	at jdk.proxy1/jdk.proxy1.$Proxy2.processTestClass(Unknown Source)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker$2.run(TestWorker.java:176)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.executeAndMaintainThreadName(TestWorker.java:129)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:100)
-	at org.gradle.api.internal.tasks.testing.worker.TestWorker.execute(TestWorker.java:60)
-	at org.gradle.process.internal.worker.child.ActionExecutionWorker.execute(ActionExecutionWorker.java:56)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:133)
-	at org.gradle.process.internal.worker.child.SystemApplicationClassLoaderWorker.call(SystemApplicationClassLoaderWorker.java:71)
-	at worker.org.gradle.process.internal.worker.GradleWorkerMain.run(GradleWorkerMain.java:69)
-	at worker.org.gradle.process.internal.worker.GradleWorkerMain.main(GradleWorkerMain.java:74)
-</pre>
-</span>
-</div>
-</div>
-<div id="tab1" class="tab">
 <h2>Tests</h2>
 <table>
 <thead>
@@ -164,13 +78,13 @@ Input the output image filename (jpg or png extension):
 </tr>
 </thead>
 <tr>
-<td class="failures">start</td>
-<td class="failures">0.840s</td>
-<td class="failures">failed</td>
+<td class="success">start</td>
+<td class="success">1.723s</td>
+<td class="success">passed</td>
 </tr>
 </table>
 </div>
-<div id="tab2" class="tab">
+<div id="tab1" class="tab">
 <h2>Standard output</h2>
 <span class="code">
 <pre>?[1;31m
@@ -389,6 +303,58 @@ Choose the position method (single, grid):
 &gt; grid
 Input the output image filename (jpg or png extension):
 &gt; test\out1.png
+The watermarked image test\out1.png has been created.
+?[1;31m
+Start test 13?[0m
+Input the image filename:
+&gt; test\image5.png
+Input the watermark image filename:
+&gt; test\logorgba.png
+Do you want to use the watermark's Alpha channel?
+&gt; yes
+Input the watermark transparency percentage (Integer 0-100):
+&gt; 25
+Choose the position method (single, grid):
+&gt; grid
+Input the output image filename (jpg or png extension):
+&gt; test\out2.png
+The watermarked image test\out2.png has been created.
+?[1;31m
+Start test 14?[0m
+Input the image filename:
+&gt; test\image5.png
+Input the watermark image filename:
+&gt; test\logorgb.png
+Do you want to set a transparency color?
+&gt; yes
+Input a transparency color ([Red] [Green] [Blue]):
+&gt; 0 0 0
+Input the watermark transparency percentage (Integer 0-100):
+&gt; 35
+Choose the position method (single, grid):
+&gt; single
+Input the watermark position ([x 0-300] [y 0-600]):
+&gt; 200 200
+Input the output image filename (jpg or png extension):
+&gt; test\out3.png
+The watermarked image test\out3.png has been created.
+?[1;31m
+Start test 15?[0m
+Input the image filename:
+&gt; test\image5.png
+Input the watermark image filename:
+&gt; test\logorgba.png
+Do you want to use the watermark's Alpha channel?
+&gt; yes
+Input the watermark transparency percentage (Integer 0-100):
+&gt; 50
+Choose the position method (single, grid):
+&gt; single
+Input the watermark position ([x 0-300] [y 0-600]):
+&gt; 300 400
+Input the output image filename (jpg or png extension):
+&gt; test\out4.png
+The watermarked image test\out4.png has been created.
 </pre>
 </span>
 </div>
@@ -400,7 +366,7 @@ Input the output image filename (jpg or png extension):
 <input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
 </label>
 </div>Generated by 
-<a href="http://www.gradle.org">Gradle 7.3.3</a> at Mar 28, 2023, 3:28:28 PM</p>
+<a href="http://www.gradle.org">Gradle 7.3.3</a> at Mar 28, 2023, 10:01:48 PM</p>
 </div>
 </div>
 </body>
