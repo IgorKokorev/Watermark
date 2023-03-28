@@ -20,14 +20,15 @@ fun main() {
         wm = readFile("watermark")
     } catch (e: ImgFileException) { return }
 
-    if (im.width != wm.width || im.height != wm.height) {
-        println("The image and watermark dimensions are different.")
+    // check if watermark is bigger than image
+    if (im.width < wm.width || im.height < wm.height) {
+        println("The watermark's dimensions are larger.")
         return
     }
 
-    var useAlfa = false
-    var useTranspColor = false
-    var tClr = Color(0,0, 0)
+    var useAlfa = false // should we use watermark's alfa channel
+    var useBGColor = false // should we use a background color as translucent
+    var tClr = Color(0,0, 0) // transparency color in watermark
     if (wm.transparency == Transparency.TRANSLUCENT) {
         println("Do you want to use the watermark's Alpha channel?")
         useAlfa = readln().equals("yes", true)
@@ -60,10 +61,11 @@ fun main() {
                 return
             }
             tClr = Color(tRed, tGreen, tBlue)
-            useTranspColor = true
+            useBGColor = true
         }
     }
 
+    // weight of watermark
     val weight: Int
     println("Input the watermark transparency percentage (Integer 0-100):")
     try {
@@ -78,6 +80,38 @@ fun main() {
         return
     }
 
+    // should we put a single watermark (else we put grid)
+    var isWMSingle = true
+    var xWM = 0
+    var yWM = 0
+    println("Choose the position method (single, grid):")
+    when (readln().lowercase()) {
+        "single" -> {
+            println("Input the watermark position ([x 0-${im.width-wm.width}] [y 0-${im.height-wm.height}):")
+            val inp = readln().split(" ")
+            if (inp.size != 2) {
+                println("The position input is invalid.")
+                return
+            }
+            try {
+                xWM = inp[0].toInt()
+                yWM = inp[1].toInt()
+            } catch (e: NumberFormatException) {
+                println("The position input is invalid.")
+                return
+            }
+            if ( !( xWM in 0..(im.width-wm.width) && yWM in 0..(im.height-wm.height) ) ){
+                println("The position input is out of range.")
+                return
+            }
+        }
+        "grid" -> isWMSingle = false
+        else -> {
+            println("The position method input is invalid.")
+            return
+        }
+    }
+
     println("Input the output image filename (jpg or png extension):")
     val outFileName = readln()
     if ( !( outFileName.endsWith(".jpg", true) || outFileName.endsWith(".png", true ) ) ) {
@@ -85,9 +119,12 @@ fun main() {
         return
     }
 
+    // resulting image
     val resImg: BufferedImage
+
+
     if(useAlfa) resImg = putTransLucidWM(im, wm, weight)
-    else if (useTranspColor) resImg = putTransColorWM(im, wm, tClr, weight)
+    else if (useBGColor) resImg = putTransColorWM(im, wm, tClr, weight)
     else resImg = putOpaqueWM(im, wm, weight)
 
     val outFile = File(outFileName)
